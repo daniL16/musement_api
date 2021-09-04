@@ -10,6 +10,7 @@ class Request
 {
 
     /**
+     * Send API request using Guzzle Client
      * @param string $base_uri
      * @param string $uri
      * @param string $method
