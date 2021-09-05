@@ -12,11 +12,13 @@ class MusementCitiesService
     )
     {}
 
-    /**
-     * @return array
-     * @throws GuzzleException
-     */
     public function getCities(): array{
-        return json_decode($this->apiService->sendRequest('cities')->getBody()->getContents(), true);
+        try{
+            $apiResponse =  $this->apiService->sendRequest('cities')->getBody()->getContents();
+            $cities = json_decode($apiResponse, true);
+        }catch (GuzzleException){
+            return [];
+        }
+        return $cities;
     }
 }

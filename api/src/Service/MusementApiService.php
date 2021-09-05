@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Common\Request;
 use GuzzleHttp\Exception\GuzzleException;
+use InvalidArgumentException;
 use GuzzleHttp\Psr7\Response;
 
 class MusementApiService
@@ -25,6 +26,9 @@ class MusementApiService
      */
     public function sendRequest(string $api,  array $data = [], array $queryParams = []): Response
     {
+        if(!isset($this->apiConfig[$api])){
+            throw new InvalidArgumentException();
+        }
         $uri = 'api/'.$_ENV['MUSEMENT_API_VERSION']. $this->apiConfig[$api]['uri'];
         $requestHandler = new Request();
         return $requestHandler->sendRequest($_ENV['MUSEMENT_API_URL'], $uri, $this->apiConfig[$api]['method'], $data, $queryParams);
