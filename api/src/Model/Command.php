@@ -11,16 +11,14 @@ abstract class Command
     protected array $payload = [];
 
     /**
-     * Create a command object from a payload
-     * @param array $payload
-     * @return self
+     * Create a command object from a payload.
      */
     abstract public function fromPayload(array $payload): self;
 
     /**
-     * Check if payload has correct data
+     * Check if payload has correct data.
+     *
      * @throws Exception
      */
     abstract public function assertIsValidPayload(array $payload);
-
 }

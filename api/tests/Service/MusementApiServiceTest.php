@@ -17,7 +17,8 @@ class MusementApiServiceTest extends WebTestCase
         $this->apiClient = new MusementApiService();
     }
 
-    public function testCitiesApi(){
+    public function testCitiesApi()
+    {
         $citiesService = new MusementCitiesService($this->apiClient);
         $cities = $citiesService->getCities();
         /*
@@ -28,10 +29,12 @@ class MusementApiServiceTest extends WebTestCase
     }
 
     /**
-     * Try to make a request to an endpoint that is not defined in our configuration
+     * Try to make a request to an endpoint that is not defined in our configuration.
+     *
      * @throws GuzzleException
      */
-    public function testInvalidEndpoint(){
+    public function testInvalidEndpoint()
+    {
         $this->expectException(InvalidArgumentException::class);
         $this->apiClient->sendRequest('test');
     }

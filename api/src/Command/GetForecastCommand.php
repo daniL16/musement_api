@@ -14,7 +14,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class GetForecastCommand extends Command
 {
-
     protected static $defaultName = 'musement:get-cities-forecast';
 
     private MessageBusInterface $messageBus;
@@ -27,30 +26,29 @@ class GetForecastCommand extends Command
 
     /**
      * Get the list of the cities from Musement's API for each city gets the forecast for the next 2 days.
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        try{
+        try {
             $cities = $this->getCities();
-        }catch (GuzzleException $exception){
+        } catch (GuzzleException $exception) {
             $output->writeln('Error while getting cities: '.$exception->getMessage());
+
             return Command::FAILURE;
         }
 
-        foreach ($cities as $city){
+        foreach ($cities as $city) {
             $cityData = [
                 'name' => $city['name'],
                 'longitude' => $city['longitude'],
-                'latitude' => $city['latitude']
+                'latitude' => $city['latitude'],
             ];
             $weatherCommand = (new GetWeatherCommand($output))->fromPayload($cityData);
             try {
                 $this->messageBus->dispatch($weatherCommand);
             } catch (Exception $exception) {
                 $output->writeln($exception->getMessage());
+
                 return Command::FAILURE;
             }
         }
@@ -60,12 +58,13 @@ class GetForecastCommand extends Command
 
     /**
      * Get array of cities from Musement API.
-     * @return array
+     *
      * @throws GuzzleException
      */
-    private function getCities():array{
+    private function getCities(): array
+    {
         $apiClient = new MusementCitiesService(new MusementApiService());
+
         return $apiClient->getCities();
     }
-
 }
