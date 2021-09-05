@@ -1,0 +1,28 @@
+name: Tests
+on:
+  - push
+
+jobs:
+    docker-build:
+      name: Docker build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: PHP syntax checker 7.3
+          uses: overtrue/phplint@3.0.2
+          with:
+            path: ./api/
+            options: --exclude=*.log
+            warning: true
+        - name: Pull images
+          run: docker-compose pull
+        - name: Start services
+          run: make build
+    run-tests:
+      runs-on: ubuntu-latest
+      name: Run test
+      needs: docker-build
+      steps:
+        - name: Run tests
+          run: make tests
