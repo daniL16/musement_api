@@ -18,7 +18,7 @@ jobs:
         - name: Pull images
           run: docker-compose pull
         - name: Start services
-          run: make build
+          run: make run
         - name: Wait for services
           run: sleep 30
         - name: Run tests
