@@ -1,10 +1,7 @@
 name: Format (PHP)
 
 on:
-  push:
-    paths:
-      - '**.php'
-
+  - push
 jobs:
   php-cs-fixer:
     runs-on: ubuntu-latest
