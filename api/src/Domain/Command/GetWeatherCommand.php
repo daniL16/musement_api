@@ -38,6 +38,9 @@ class GetWeatherCommand extends Command
         if(!is_float($payload['latitude'])){
             throw new InvalidArgumentException('Latitude value must be a float');
         }
+        if(empty($payload['name'])){
+            throw new InvalidArgumentException('City name is required');
+        }
     }
 
     /**

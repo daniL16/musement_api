@@ -9,23 +9,27 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class GetWeatherCommandHandler implements MessageHandlerInterface
 {
-    private const DAYS_FORECAST = 2;
+    public const DAYS_FORECAST = 2;
 
     /**
      * Get the weather forecast for a given city through its coordinates for the next n days.
      * Result is printed in console.
      * @param GetWeatherCommand $command
+     * @return array
+     * @throws GuzzleException
      */
-    public function __invoke(GetWeatherCommand $command)
+    public function __invoke(GetWeatherCommand $command): array
     {
         $coordinates = $command->getCoordinates();
         try {
             $apiWeatherClient = new ApiWeatherService();
             $forecast = $apiWeatherClient->getWeatherForecast($coordinates['latitude'], $coordinates['longitude'], self::DAYS_FORECAST);
             $forecastString = $this->buildForecastString($forecast);
-            $command->getOutput()->writeln('Processed city ' . $command->getCityName() . ' | '. $forecastString);
+            $command->getOutput()?->writeln('Processed city ' . $command->getCityName() . ' | '. $forecastString);
+            return $forecast;
         } catch (GuzzleException $exception){
-            $command->getOutput()->writeln("Error: ".$exception->getMessage());
+            $command->getOutput()?->writeln("Error: ".$exception->getMessage());
+            throw $exception;
         }
     }
 
