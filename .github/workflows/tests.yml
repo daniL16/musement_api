@@ -19,10 +19,5 @@ jobs:
           run: docker-compose pull
         - name: Start services
           run: make build
-    run-tests:
-      runs-on: ubuntu-latest
-      name: Run test
-      needs: docker-build
-      steps:
         - name: Run tests
           run: make tests
