@@ -21,5 +21,7 @@ jobs:
           run: make run
         - name: Wait for services
           run: sleep 30
+        - name: Composer install
+          run: make composer-install
         - name: Run tests
           run: make tests
