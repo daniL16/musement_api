@@ -1,9 +1,11 @@
 ## Musement | Backend tech homework
 
+Daniel López García | Serinsa
+
 ### Dev environment.
 
 The environment has been mounted on 2 Docker containers, one for nginx and one for php.
-To setup a dev environment just need to run `docker-compose up -d` in the root folder.
+To set up a dev environment just need to run `docker-compose up -d` in the root folder.
 
 Api keys are provided in api/.env.
 
@@ -35,9 +37,10 @@ of cities. Once we got it, for each city a new command is created,
 and it will be in charge of make a request to weatherapi for get weather forecast. 
 Results are printed to stdout.
 
-### Github Actions.
+### GitHub Actions.
 
-// TODO
+Repository has an automated action when push is done. 
+This action runs php-cs-fixer over src folder to fix our code to follow Symfony standard.
 
 ### Code Analyser.
 

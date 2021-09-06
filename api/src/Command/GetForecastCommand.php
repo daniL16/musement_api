@@ -59,7 +59,6 @@ class GetForecastCommand extends Command
     /**
      * Get array of cities from Musement API.
      *
-     * @throws GuzzleException
      */
     private function getCities(): array
     {
