@@ -2,6 +2,8 @@
 
 Daniel López García | Serinsa
 
+Important: Explanation of step 1 and the resolution of step 2 are in this file https://github.com/daniL16/musement_api/blob/master/apiDesign.md
+
 ### Dev environment.
 
 The environment has been mounted on 2 Docker containers, one for nginx and one for php.
