@@ -6,7 +6,6 @@ use App\Domain\Command\GetWeatherCommand;
 use App\Service\MusementApiService;
 use App\Service\MusementCitiesService;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,13 +28,7 @@ class GetForecastCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        try {
-            $cities = $this->getCities();
-        } catch (GuzzleException $exception) {
-            $output->writeln('Error while getting cities: '.$exception->getMessage());
-
-            return Command::FAILURE;
-        }
+        $cities = $this->getCities();
 
         foreach ($cities as $city) {
             $cityData = [

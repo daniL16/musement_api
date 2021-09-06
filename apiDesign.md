@@ -1,3 +1,16 @@
+## Step 1.
+
+The entrypoint of the application is *src/Command/GetForestCommand.php*. 
+It has two parts, first get list of cities from *src/Service/MusementCitiesService.php* 
+and then for each one create a new command (*Domain/Command/GetForecastCommand*) 
+in order to get forecast for that city. It is done in *src/Domain/CommandHandler/GetForecastCommandHandler.php*.
+
+Due to the requirement to print the processing result by console, the execution is synchronous. 
+However, if that data has to be stored in a database or additional processing has to be performed, 
+it would be a good option to do it asynchronously.
+
+In this scenario, we only would have to configure messenger.yaml.
+
 ## Step 2.
 
 We need to design an endpoint that receives information about weather info for a city and
@@ -80,5 +93,13 @@ and it will return one of the following responses:
   }
 }
 ```
+
+On the other hand, if we want to offer the option of filter by name city name. We can use an endpoint like this
+
+``` GET /api/v3/cities/forecast?city=xxxx&date=YYYY-mm-dd```
+
+In this case, we have to get the city id from our table of cities. 
+From then on, the behavior would be the same. Also, the response would be the same.
+
 
 
